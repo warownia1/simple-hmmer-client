@@ -1,0 +1,23 @@
+plugins {
+  id 'java-library'
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  api project(":simple-http-client")
+  testImplementation 'org.testng:testng:[7.6.0, 8.0)'
+  testImplementation 'org.slf4j:slf4j-nop:1.7.36'
+  testImplementation 'org.hamcrest:hamcrest:2.2'
+}
+
+group = 'uk.ac.dundee.compbio'
+version = '1.0-SNAPSHOT'
+description = 'hmmer-client'
+java.sourceCompatibility = JavaVersion.VERSION_11
+
+tasks.named('test') {
+  useTestNG()
+}

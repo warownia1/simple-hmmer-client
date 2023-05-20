@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<types>
+    <type>
+        <description>The output from the tool itself</description>
+        <fileSuffix>txt</fileSuffix>
+        <identifier>out</identifier>
+        <label>Tool Output</label>
+        <mediaType>text/plain</mediaType>
+    </type>
+</types>
