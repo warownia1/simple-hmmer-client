@@ -5,7 +5,6 @@ import io.github.warownia1.simplehttpclient.HttpRequest;
 import io.github.warownia1.simplehttpclient.HttpResponse;
 import io.github.warownia1.simplehttpclient.impl.WWWFormURLEncodedRequestBodyBuilder;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
@@ -13,7 +12,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Collection;
-
 import static java.lang.String.format;
 
 public class PhmmerClient {
@@ -88,10 +86,13 @@ public class PhmmerClient {
     var body = new WWWFormURLEncodedRequestBodyBuilder();
     body.append("email", email);
     {
-      var bufferedReader = new BufferedReader(request.getSequence());
-      var sequence = new StringWriter();
-      bufferedReader.transferTo(sequence);
-      body.append("sequence", sequence.toString());
+      var reader = request.getSequence();
+      var out = new StringWriter();
+      char[] buffer = new char[2048];
+      int nRead;
+      while ((nRead = reader.read(buffer, 0, buffer.length)) >= 0)
+        out.write(buffer, 0, nRead);
+      body.append("sequence", out.toString());
     }
     body.append("database", request.getDatabase().strvalue);
     if (request.getIncE() != null)
